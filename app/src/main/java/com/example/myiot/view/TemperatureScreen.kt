@@ -57,8 +57,7 @@ fun TemperatureScreen(vm: ThermostatApiViewModel, paddingValues: PaddingValues) 
 
             is NetworkResult.Success -> {
                 if (resultData.data != null) {
-                    val currentTemperature = resultDataSignal.data?.field1?.toFloatOrNull()
-                        ?.let { "%.1f".format(it).toFloat() }
+                    val currentTemperature = resultDataSignal.data?.field1?.toFloatOrNull()                        
 
                     val switchThermostat = ThinkSpeakParser.readToBoolean(resultData.data?.field1)
                     val switchGLP = ThinkSpeakParser.readToBoolean(resultData.data?.field2)
@@ -78,7 +77,7 @@ fun TemperatureScreen(vm: ThermostatApiViewModel, paddingValues: PaddingValues) 
                     ) {
                         Column(modifier = Modifier.padding(top = 32.dp)) {
                             Spacer(modifier = Modifier.height(32.dp))
-                            TemperatureCard(currentTemperature)
+                             TemperatureCard("%.1f".format(currentTemperature))
                             Spacer(modifier = Modifier.height(64.dp))
                             ToggleButton(tempNames[0], tempState)
                             Spacer(modifier = Modifier.height(32.dp))
@@ -114,7 +113,7 @@ fun TemperatureScreen(vm: ThermostatApiViewModel, paddingValues: PaddingValues) 
 
 
 @Composable
-fun TemperatureCard(currentTemperature: Float?) {
+fun TemperatureCard(currentTemperature: String) {
 
     Card(
         modifier = Modifier.fillMaxWidth(),

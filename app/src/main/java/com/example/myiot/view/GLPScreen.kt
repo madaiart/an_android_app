@@ -59,8 +59,7 @@ fun GLPScreen(
 
             is NetworkResult.Success -> {
                 if (resultData.data != null) {
-                    val currentGLP = resultDataSignal.data?.field2?.toFloatOrNull()
-                        ?.let { "%.1f".format(it).toFloat() }
+                    val currentGLP = resultDataSignal.data?.field2?.toFloatOrNull()                        
 
                     val switchThermostat = ThinkSpeakParser.readToBoolean(resultData.data?.field1)
                     val switchGLP = ThinkSpeakParser.readToBoolean(resultData.data?.field2)
@@ -80,7 +79,7 @@ fun GLPScreen(
                     ) {
                         Column(modifier = Modifier.padding(top = 32.dp)) {
                             Spacer(modifier = Modifier.height(32.dp))
-                            GLPCard(currentGLP)
+                            GLPCard("%.1f".format(currentGLP))
                             Spacer(modifier = Modifier.height(64.dp))
                             ToggleButton(glpNames[1], glpState, enabled = false)
                             Spacer(modifier = Modifier.height(32.dp))
@@ -166,7 +165,7 @@ fun ClickableGLPButton(vm: GLPApiViewModel, toggleState: List<MutableState<Boole
 }
 
 @Composable
-fun GLPCard(currentGLP: Float?) {
+fun GLPCard(currentGLP: String) {
 
     Card(
         modifier = Modifier.fillMaxWidth(),
